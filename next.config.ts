@@ -14,7 +14,6 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig = {
-  output: 'standalone' as const,
   reactStrictMode: true
 };
 

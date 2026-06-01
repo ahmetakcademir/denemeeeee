@@ -1,22 +1,41 @@
-const { exec } = require("child_process");
+const { createServer } = require("http");
+const { parse } = require("url");
+const next = require("next");
 
-console.log("NARD Server: Initializing Next.js production server via sub-process...");
+// Force production environment
+process.env.NODE_ENV = "production";
 
-// Resolve dynamic port binding requested by Hostinger hPanel/Passenger
+console.log("NARD Server: Initializing programmatic Next.js production server...");
+
+const dev = false;
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
+// Hostinger/Phusion Passenger passes a Unix domain socket path in process.env.PORT.
+// Standard Node.js server.listen() supports both socket paths and numeric ports natively.
+// We avoid parseInt() to preserve socket paths.
 const port = process.env.PORT || 3000;
-console.log(`NARD Server: Target binding port detected: ${port}`);
+console.log(`NARD Server: Target port or socket binding: ${port}`);
 
-// Launch 'next start' inside a child process
-const nextProcess = exec(`npx next start -p ${port}`);
+app.prepare()
+  .then(() => {
+    console.log("NARD Server: App preparation successful. Creating HTTP server...");
+    
+    const server = createServer((req, res) => {
+      const parsedUrl = parse(req.url, true);
+      handle(req, res, parsedUrl);
+    });
 
-nextProcess.stdout.on("data", (data) => {
-  console.log(`[Next.js STDOUT]: ${data}`);
-});
+    server.listen(port, (err) => {
+      if (err) {
+        console.error("NARD Server: Critical listener crash:", err);
+        throw err;
+      }
+      console.log(`NARD Server: Ready and successfully bound to: ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("NARD Server: Critical app preparation failure:", err);
+    process.exit(1);
+  });
 
-nextProcess.stderr.on("data", (data) => {
-  console.error(`[Next.js STDERR]: ${data}`);
-});
-
-nextProcess.on("close", (code) => {
-  console.log(`NARD Server: Next.js process exited with code ${code}`);
-});
