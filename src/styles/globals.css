@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cormorant: var(--font-cormorant), serif;
+  --fira: var(--font-fira), monospace;
+}
+
+body {
+  font-family: var(--fira);
+  overflow-x: hidden;
+  background-color: #111111;
+  color: #ece8e1;
+}
+
+/* Custom premium scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b2b2b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c29f68;
+}
+
+/* Premium typography mappings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cormorant);
+  letter-spacing: 0.05em;
+}
+
+/* Glassmorphic premium styles */
+.glass-panel {
+  background: rgba(23, 23, 23, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 232, 225, 0.06);
+}
+
+.glass-panel-light {
+  background: rgba(236, 232, 225, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(236, 232, 225, 0.12);
+}
+
+/* Custom glow utility */
+.glow-amber {
+  box-shadow: 0 0 25px rgba(194, 159, 104, 0.15);
+}
+
+.glow-sage {
+  box-shadow: 0 0 25px rgba(94, 109, 98, 0.15);
+}
+
+/* Cyber text effects */
+.cyber-glitch {
+  position: relative;
+}
+
+/* Custom smooth transitions */
+.transition-luxury {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}

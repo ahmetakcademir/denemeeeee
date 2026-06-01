@@ -1,0 +1,73 @@
+{
+  "Navbar": {
+    "collections": "Collections",
+    "quiz": "Synthétiseur de Parfum",
+    "story": "Histoire",
+    "cart": "Panier",
+    "region": "Région / Devise",
+    "coords": "COORDONNÉES"
+  },
+  "Hero": {
+    "title": "NARD",
+    "subtitle": "Spikenard. Pure noblesse issue des hauteurs de l'Himalaya. Une harmonie cyber-minimaliste de parfum et de texture.",
+    "ctaShop": "Explorer la Collection",
+    "ctaQuiz": "Synthétiser Votre Signature",
+    "soundOn": "AMBIANCE ACTIVE",
+    "soundOff": "AMBIANCE INACTIVE"
+  },
+  "Products": {
+    "perfumeTitle": "Parfum NARD Spikenard",
+    "perfumeDesc": "René grâce à la synthèse moléculaire moderne, l'huile noble de racines rares de nard récoltées à 4000 m d'altitude dans l'Himalaya. Terreux, ambre riche et velours apaisant.",
+    "poloTitle": "Polo NARD Heavyweight",
+    "poloDesc": "Polo premium de 280 GSM, mélange 100 % lin-coton biologique. Conçu dans une maille texturée vert sauge (Sage Green) pour une présence exquise.",
+    "notesTitle": "Notes de Parfum Moléculaires",
+    "notesTop": "Notes de Tête: Brise de l'Himalaya, Sauge Sclarée, Bergamote",
+    "notesHeart": "Notes de Cœur: Huile de Nard Pure, Rose Sèche, Poussière de Marbre",
+    "notesBase": "Notes de Fond: Ambre Chaud, Bois de Santal, Musc Velouté",
+    "featuresTitle": "Détails du Tissu",
+    "featuresGsm": "Poids: 280 GSM Heavyweight",
+    "featuresKnit": "Maille: Lin Technique & Coton Biologique",
+    "featuresColor": "Couleur: Vert Sauge / Anthracite",
+    "addToCart": "Ajouter au Panier"
+  },
+  "NebulaRegion": {
+    "title": "Panneau de Contrôle Régional",
+    "selectDesc": "Veuillez sélectionner votre région préférée. La langue et la devise seront synchronisées automatiquement.",
+    "trRegion": "Turquie (TR - ₺)",
+    "enRegion": "Global (EN - $)",
+    "deRegion": "Allemagne (DE - €)",
+    "frRegion": "France (FR - €)",
+    "activeRate": "CAPTEURS DE DONNÉES ACTIFS",
+    "close": "FERMER"
+  },
+  "Quiz": {
+    "title": "Synthétiseur Moléculaire de Parfum",
+    "subtitle": "Embarquez pour un voyage émotionnel pour synthétiser votre molécule de parfum et de style signature.",
+    "start": "Initialiser la Synthèse",
+    "next": "Étape Suivante",
+    "q1": "Sur quelle fréquence vous sentez-vous aujourd'hui?",
+    "q1a1": "Calme & Organique (Tons Terreux)",
+    "q1a2": "Mystérieux & Profond (Lumières Nocturnes)",
+    "q1a3": "Énergique & Saisissant (Ambre Cyber)",
+    "q2": "Quel élément sensoriel est actif dans votre esprit?",
+    "q2a1": "Forêt de pins trempée de pluie et pierre froide",
+    "q2a2": "Bibliothèques anciennes et bois chaud poli",
+    "q2a3": "Encens fumé, ambre gris et vents métalliques",
+    "q3": "Quelle texture de tissu convient le mieux à votre peau?",
+    "q3a1": "Lin léger et coton peigné biologique",
+    "q3a2": "Velours dense et couches lourdes d'anthracite",
+    "q3a3": "Structures en maille souple avec coutures dorées",
+    "resultTitle": "Résultat de la Synthèse",
+    "resultDesc": "Synthétisé selon votre état émotionnel, vos molécules de parfum et votre profil tactile:",
+    "matchPack": "Sovereign Pack (Acheter en Lot)",
+    "packDesc": "Votre parfum NARD personnalisé associé à votre Polo Organique NARD 100 % harmonisé.",
+    "addPack": "Ajouter le Sovereign Pack au Panier"
+  },
+  "Cart": {
+    "title": "Mon Panier",
+    "empty": "Votre panier est vide. Souhaitez-vous synthétiser votre molécule personnalisée?",
+    "total": "MONTANT TOTAL",
+    "checkout": "Passer la Commande (Sécurisé par Hostinger)",
+    "remove": "Supprimer"
+  }
+}

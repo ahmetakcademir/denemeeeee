@@ -1,0 +1,73 @@
+{
+  "Navbar": {
+    "collections": "Collections",
+    "quiz": "Scent Synthesizer",
+    "story": "Brand Story",
+    "cart": "Cart",
+    "region": "Region / Currency",
+    "coords": "COORDINATES"
+  },
+  "Hero": {
+    "title": "NARD",
+    "subtitle": "Spikenard. Pure nobility originating from the high Himalayas. A cyber-minimalist harmony of scent and texture.",
+    "ctaShop": "Explore Collection",
+    "ctaQuiz": "Synthesize Your Signature",
+    "soundOn": "AMBIENCE ON",
+    "soundOff": "AMBIENCE OFF"
+  },
+  "Products": {
+    "perfumeTitle": "NARD Spikenard Perfume",
+    "perfumeDesc": "Reborn through modern molecular synthesis, the noble oil of rare spikenard roots harvested from 4000m altitudes in the Himalayas. Earthy, rich amber, and calm velvet.",
+    "poloTitle": "NARD Heavyweight Polo",
+    "poloDesc": "280 GSM premium heavyweight, 100% organic linen-cotton blend. Tailored in a tactile sage green weave for an exquisite presence.",
+    "notesTitle": "Molecular Scent Notes",
+    "notesTop": "Top Notes: Himalayan Breeze, Clary Sage, Bergamot",
+    "notesHeart": "Heart Notes: Pure Spikenard Oil, Dry Rose, Marble Dust",
+    "notesBase": "Base Notes: Warm Amber, Sandalwood, Velvety Musk",
+    "featuresTitle": "Fabric Details",
+    "featuresGsm": "Weight: 280 GSM Heavyweight",
+    "featuresKnit": "Knit: Technical Linen & Organic Cotton",
+    "featuresColor": "Color: Sage Green / Anthracite",
+    "addToCart": "Add to Cart"
+  },
+  "NebulaRegion": {
+    "title": "Regional Control Panel",
+    "selectDesc": "Please select your preferred region. Language and currency will be synchronized automatically.",
+    "trRegion": "Turkey (TR - ₺)",
+    "enRegion": "Global (EN - $)",
+    "deRegion": "Germany (DE - €)",
+    "frRegion": "France (FR - €)",
+    "activeRate": "ACTIVE DATA SENSORS",
+    "close": "CLOSE"
+  },
+  "Quiz": {
+    "title": "Molecular Scent Synthesizer",
+    "subtitle": "Embark on an emotional journey to synthesize your signature scent and style molecule.",
+    "start": "Initialize Synthesis",
+    "next": "Next Step",
+    "q1": "Which frequency do you feel yourself at today?",
+    "q1a1": "Calm & Organic (Earth Tones)",
+    "q1a2": "Mysterious & Deep (Nocturnal Lights)",
+    "q1a3": "Energetic & Striking (Cyber Amber)",
+    "q2": "What is the sensory element active in your mind?",
+    "q2a1": "Rain-drenched pine forest and cold stone",
+    "q2a2": "Ancient libraries and warm polished wood",
+    "q2a3": "Smoky incense, ambergris, and metallic winds",
+    "q3": "Which fabric texture suits your skin best?",
+    "q3a1": "Breezy linen and organic combed cotton",
+    "q3a2": "Dense velvet and heavy anthracite layers",
+    "q3a3": "Supple knit structures with soft gold stitching",
+    "resultTitle": "Synthesis Result",
+    "resultDesc": "Synthesized based on your emotional state, scent molecules, and tactile profile:",
+    "matchPack": "Sovereign Pack (Buy as Set)",
+    "packDesc": "Your customized NARD Perfume paired with the 100% harmonized NARD Organic Polo.",
+    "addPack": "Add Sovereign Pack to Cart"
+  },
+  "Cart": {
+    "title": "My Cart",
+    "empty": "Your cart is empty. Would you like to synthesize your custom molecule?",
+    "total": "TOTAL BALANCE",
+    "checkout": "Complete Checkout (Powered by Hostinger)",
+    "remove": "Remove"
+  }
+}

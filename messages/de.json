@@ -1,0 +1,73 @@
+{
+  "Navbar": {
+    "collections": "Kollektionen",
+    "quiz": "Duftsynthesizer",
+    "story": "Markenstory",
+    "cart": "Warenkorb",
+    "region": "Region / Währung",
+    "coords": "KOORDINATEN"
+  },
+  "Hero": {
+    "title": "NARD",
+    "subtitle": "Spikenard. Reine Erhabenheit aus den Höhen des Himalajas. Eine kybernetisch-minimalistische Harmonie von Duft und Textur.",
+    "ctaShop": "Kollektion Erkunden",
+    "ctaQuiz": "Signatur Synthetisieren",
+    "soundOn": "AMBIENTE AN",
+    "soundOff": "AMBIENTE AUS"
+  },
+  "Products": {
+    "perfumeTitle": "NARD Spikenard Parfüm",
+    "perfumeDesc": "Durch moderne molekulare Synthese wiedergeboren: das edle Öl seltener Spiknard-Wurzeln, geerntet aus 4000 m Höhe im Himalaja. Erdig, reicher Bernstein und beruhigender Samt.",
+    "poloTitle": "NARD Heavyweight Polo",
+    "poloDesc": "280 GSM Premium-Schwergewicht, 100 % biologische Leinen-Baumwoll-Mischung. Maßgeschneidert in einer fühlbaren salbeigrünen (Sage Green) Webart für erlesene Präsenz.",
+    "notesTitle": "Molekulare Duftnoten",
+    "notesTop": "Kopfnoten: Himalaja-Brise, Muskatellersalbei, Bergamotte",
+    "notesHeart": "Herznoten: Reines Spiknardöl, Trockene Rose, Marmorstaub",
+    "notesBase": "Basisnoten: Warmer Bernstein, Sandelholz, Samtiger Moschus",
+    "featuresTitle": "Stoffdetails",
+    "featuresGsm": "Gewicht: 280 GSM Heavyweight",
+    "featuresKnit": "Strick: Technisches Leinen & Bio-Baumwolle",
+    "featuresColor": "Farbe: Salbeigrün / Anthrazit",
+    "addToCart": "In den Warenkorb"
+  },
+  "NebulaRegion": {
+    "title": "Regionales Kontrollzentrum",
+    "selectDesc": "Bitte wählen Sie Ihre bevorzugte Region aus. Sprache und Währung werden automatisch synchronisiert.",
+    "trRegion": "Türkei (TR - ₺)",
+    "enRegion": "Global (EN - $)",
+    "deRegion": "Deutschland (DE - €)",
+    "frRegion": "Frankreich (FR - €)",
+    "activeRate": "AKTIVE DATENSENSOREN",
+    "close": "SCHLIESSEN"
+  },
+  "Quiz": {
+    "title": "Molekularer Duftsynthesizer",
+    "subtitle": "Begeben Sie sich auf eine emotionale Reise, um Ihr persönliches Duft- und Stilmolekül zu synthetisieren.",
+    "start": "Synthese Starten",
+    "next": "Nächster Schritt",
+    "q1": "Auf welcher Frequenz fühlen Sie sich heute?",
+    "q1a1": "Ruhig & Organisch (Erdtöne)",
+    "q1a2": "Geheimnisvoll & Tief (Nachtlichter)",
+    "q1a3": "Energetisch & Markant (Cyber Bernstein)",
+    "q2": "Welches sensorische Element ist in Ihrem Geist aktiv?",
+    "q2a1": "Regennasser Kiefernwald und kalter Stein",
+    "q2a2": "Alte Bibliotheken und warmes, poliertes Holz",
+    "q2a3": "Rauchiger Weihrauch, Ambra und metallische Winde",
+    "q3": "Welche Stofftextur passt am besten zu Ihrer Haut?",
+    "q3a1": "Luftiges Leinen und biologische gekämmte Baumwolle",
+    "q3a2": "Dichter Samt und schwere Anthrazitschichten",
+    "q3a3": "Geschmeidige Strickstrukturen mit feinen Goldnähten",
+    "resultTitle": "Synthese-Ergebnis",
+    "resultDesc": "Synthetisiert basierend auf Ihrer emotionalen Verfassung, Ihren Duftmolekülen und Ihrem taktilen Profil:",
+    "matchPack": "Sovereign Pack (Als Set Kaufen)",
+    "packDesc": "Ihr personalisiertes NARD Parfüm gepaart mit dem 100 % harmonisierten NARD Bio-Polo.",
+    "addPack": "Sovereign Pack in den Warenkorb"
+  },
+  "Cart": {
+    "title": "Warenkorb",
+    "empty": "Ihr Warenkorb ist leer. Möchten Sie Ihr individuelles Molekül synthetisieren?",
+    "total": "GESAMTSUMME",
+    "checkout": "Zur Kasse (Powered by Hostinger)",
+    "remove": "Entfernen"
+  }
+}

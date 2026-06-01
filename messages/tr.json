@@ -1,0 +1,73 @@
+{
+  "Navbar": {
+    "collections": "Koleksiyonlar",
+    "quiz": "Koku Sentezleyici",
+    "story": "Marka Hikayesi",
+    "cart": "Sepet",
+    "region": "Bölge / Para Birimi",
+    "coords": "KOORDİNATLAR"
+  },
+  "Hero": {
+    "title": "NARD",
+    "subtitle": "Spikenard. Himalayalar'ın zirvesinden gelen saf asalet. Koku ve dokunun siber-minimalist harmonisi.",
+    "ctaShop": "Koleksiyonu Keşfet",
+    "ctaQuiz": "Kendi İmzanı Sentezle",
+    "soundOn": "AMBİYANS AÇIK",
+    "soundOff": "AMBİYANS KAPALI"
+  },
+  "Products": {
+    "perfumeTitle": "NARD Spikenard Perfume",
+    "perfumeDesc": "Himalayalar'ın 4000 metre yüksekliğinden toplanan nadir spikenard köklerinin, modern moleküler sentez ile yeniden hayat bulmuş asil kokusu. Toprak, kehribar ve sakinleştirici derin kadife.",
+    "poloTitle": "NARD Heavyweight Polo",
+    "poloDesc": "280 GSM ağırlığında, %100 organik keten ve pamuk karışımı. Gözle görülebilir dokusuyla asil adaçayı yeşili (Sage Green) tonlarında özel dikiş.",
+    "notesTitle": "Moleküler Koku Notaları",
+    "notesTop": "Üst Nota: Himalayalar Rüzgarı, Adaçayı, Bergamot",
+    "notesHeart": "Kalp Nota: Saf Spikenard Yağı, Kuru Gül, Mermer Tozu",
+    "notesBase": "Alt Nota: Sıcak Kehribar, Sandal Ağacı, Kadifemsi Misk",
+    "featuresTitle": "Kumaş Özellikleri",
+    "featuresGsm": "Ağırlık: 280 GSM Heavyweight",
+    "featuresKnit": "Örgü: Teknik Keten & Organik Pamuk",
+    "featuresColor": "Renk: Sage Green / Antrasit",
+    "addToCart": "Sepete Ekle"
+  },
+  "NebulaRegion": {
+    "title": "Bölgesel Kontrol Paneli",
+    "selectDesc": "Lütfen alışveriş yapmak istediğiniz bölgeyi seçin. Dil ve para birimi senkronize şekilde güncellenecektir.",
+    "trRegion": "Türkiye (TR - ₺)",
+    "enRegion": "Global (EN - $)",
+    "deRegion": "Almanya (DE - €)",
+    "frRegion": "Fransa (FR - €)",
+    "activeRate": "AKTİF VERİ SİNYALİ",
+    "close": "KAPAT"
+  },
+  "Quiz": {
+    "title": "Molecular Scent Synthesizer",
+    "subtitle": "Kendi imza koku ve stil molekülünü sentezlemek için duygusal bir keşfe çık.",
+    "start": "Sentezi Başlat",
+    "next": "Sonraki Adım",
+    "q1": "Bugün kendini hangi frekansta hissediyorsun?",
+    "q1a1": "Sakin & Doğal (Toprak Tonları)",
+    "q1a2": "Gizemli & Derin (Gece Işıkları)",
+    "q1a3": "Enerjik & Çarpıcı (Siber Altın)",
+    "q2": "Zihninde canlanan koku hangisi?",
+    "q2a1": "Yağmur sonrası orman ve taş kokusu",
+    "q2a2": "Antik kütüphaneler ve ahşap sıcaklığı",
+    "q2a3": "Tütsü, kehribar ve metalik rüzgarlar",
+    "q3": "Hangi kumaş dokusu tenine yakışır?",
+    "q3a1": "Keten ve organik pamuk esintisi",
+    "q3a2": "Ağır kadife ve antrasit yoğunluk",
+    "q3a3": "Yumuşak keten ve altın sarısı detaylar",
+    "resultTitle": "Sentez Sonucu",
+    "resultDesc": "Ruh halin, seçtiğin koku bileşenleri ve ten dokuna göre sentezlenen asil imzan:",
+    "matchPack": "Sovereign Pack (Set Olarak Satın Al)",
+    "packDesc": "Kişiselleştirilmiş NARD Parfümü ve onunla %100 uyumlu NARD Organik Polo Tişörtü bir arada.",
+    "addPack": "Sovereign Pack'i Sepete Ekle"
+  },
+  "Cart": {
+    "title": "Sepetim",
+    "empty": "Sepetiniz henüz boş. Kendi molekülünüzü sentezlemeye ne dersiniz?",
+    "total": "TOPLAM TUTAR",
+    "checkout": "Siparişi Tamamla (Hostinger Güvencesiyle)",
+    "remove": "Kaldır"
+  }
+}
