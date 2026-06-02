@@ -22,6 +22,7 @@ app.prepare()
     console.log("NARD Server: App preparation successful. Creating HTTP server...");
     
     const server = createServer((req, res) => {
+      console.log(`NARD Request: ${req.method} ${req.url} - Headers: ${JSON.stringify(req.headers)}`);
       const parsedUrl = parse(req.url, true);
       handle(req, res, parsedUrl);
     });

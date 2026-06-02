@@ -1,0 +1,80 @@
+{
+  "perfume": {
+    "id": "nard-perfume-01",
+    "nameKey": "Products.perfumeTitle",
+    "descKey": "Products.perfumeDesc",
+    "basePrice": {
+      "tr": 1250,
+      "en": 85,
+      "de": 79,
+      "fr": 79
+    },
+    "specs": {
+      "tr": [
+        "Üst Nota: Himalayalar Rüzgarı, Adaçayı, Bergamot",
+        "Kalp Nota: Saf Spikenard Yağı, Kuru Gül, Mermer Tozu",
+        "Alt Nota: Sıcak Kehribar, Sandal Ağacı, Kadifemsi Misk"
+      ],
+      "en": [
+        "Top Notes: Himalayan Breeze, Clary Sage, Bergamot",
+        "Heart Notes: Pure Spikenard Oil, Dry Rose, Marble Dust",
+        "Base Notes: Warm Amber, Sandalwood, Velvety Musk"
+      ],
+      "de": [
+        "Kopfnote: Himalaja-Wind, Muskatsalbei, Bergamotte",
+        "Herznote: Reines Spiknardenöl, Trockene Rose, Marmorstaub",
+        "Basisnote: Warmer Bernstein, Sandelholz, Samtiger Moschus"
+      ],
+      "fr": [
+        "Note de Tête: Brise de l'Himalaya, Sauge Sclarée, Bergamote",
+        "Note de Cœur: Huile de Nard Pure, Rose Sèche, Poussière de Marbre",
+        "Note de Fond: Ambre Chaud, Bois de Santal, Musc Velouté"
+      ]
+    }
+  },
+  "polo": {
+    "id": "nard-polo-01",
+    "nameKey": "Products.poloTitle",
+    "descKey": "Products.poloDesc",
+    "basePrice": {
+      "tr": 1450,
+      "en": 95,
+      "de": 89,
+      "fr": 89
+    },
+    "specs": {
+      "tr": [
+        "Ağırlık: 280 GSM Heavyweight",
+        "Örgü: Teknik Keten & Organik Pamuk",
+        "Renk: Sage Green / Antrasit"
+      ],
+      "en": [
+        "Weight: 280 GSM Heavyweight",
+        "Knit: Technical Linen & Organic Cotton",
+        "Color: Sage Green / Anthracite"
+      ],
+      "de": [
+        "Gewicht: 280 GSM Heavyweight",
+        "Strick: Technisches Leinen & Bio-Baumwolle",
+        "Farbe: Salbeigrün / Anthrazit"
+      ],
+      "fr": [
+        "Poids: 280 GSM Heavyweight",
+        "Tricot: Lin Technique & Coton Biologique",
+        "Couleur: Vert Sauge / Anthracite"
+      ]
+    }
+  },
+  "pack": {
+    "id": "nard-sovereign-pack",
+    "nameKey": "Quiz.matchPack",
+    "descKey": "Quiz.packDesc",
+    "basePrice": {
+      "tr": 2400,
+      "en": 160,
+      "de": 148,
+      "fr": 148
+    }
+  },
+  "customProducts": []
+}

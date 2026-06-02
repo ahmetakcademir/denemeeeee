@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="luxuryGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2D5A2" />
+      <stop offset="50%" stop-color="#C29F68" />
+      <stop offset="100%" stop-color="#8C6E3E" />
+    </linearGradient>
+  </defs>
+  <!-- Fine outer circular seal -->
+  <circle cx="50" cy="50" r="43" stroke="url(#luxuryGold)" stroke-width="0.8" opacity="0.3" />
+  <circle cx="50" cy="50" r="46" stroke="url(#luxuryGold)" stroke-width="1.8" />
+  
+  <!-- Interlocking N & R Monogram -->
+  <!-- Letter N -->
+  <path d="M35 28 V72 M35 28 L51 72 M51 28 V72" stroke="url(#luxuryGold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Letter R interlocking with N -->
+  <path d="M51 28 H64 C70 28 70 45 64 45 H51 M58 45 L67 72" stroke="url(#luxuryGold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

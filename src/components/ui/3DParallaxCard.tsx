@@ -6,11 +6,12 @@ import { useStore } from "@/store/useStore";
 
 interface CardProps {
   children: React.ReactNode;
-  productType: "perfume" | "polo";
+  productType: "perfume" | "polo" | "custom";
   className?: string;
+  glowColor?: string;
 }
 
-export default function ParallaxCard3D({ children, productType, className = "" }: CardProps) {
+export default function ParallaxCard3D({ children, productType, className = "", glowColor }: CardProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const setHoveredProduct = useStore((s) => s.setHoveredProduct);
 
@@ -54,6 +55,8 @@ export default function ParallaxCard3D({ children, productType, className = "" }
     setHoveredProduct(productType);
   };
 
+  const accentColor = glowColor || (productType === "perfume" ? "#C29F68" : "#5E6D62");
+
   return (
     <div
       ref={cardRef}
@@ -67,8 +70,14 @@ export default function ParallaxCard3D({ children, productType, className = "" }
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
+          boxShadow: `0 10px 40px -10px ${accentColor}2c, 0 0 20px ${accentColor}15`
         }}
-        className="relative w-full h-full glass-panel border border-white/10 p-6 flex flex-col items-center justify-center glow-amber overflow-hidden select-none transition-shadow duration-500 hover:shadow-2xl"
+        whileHover={{
+          scale: 1.03,
+          boxShadow: `0 20px 50px -5px ${accentColor}5e, 0 0 30px ${accentColor}2c`,
+          borderColor: `${accentColor}50`
+        }}
+        className="relative w-full h-full glass-panel border border-white/10 p-6 flex flex-col items-center justify-center overflow-hidden select-none transition-[border-color,background-color] duration-500"
       >
         {/* Dynamic Light Refraction Shimmer Overlay */}
         <motion.div
