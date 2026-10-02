@@ -17,6 +17,10 @@ npm run lint
 npm run build
 ```
 
+Bu revizyonun tasarım yönü ve kontrolleri `DESIGN.md` dosyasındadır. Sayfa dört dilde üretilir; görünür dil seçimi, koleksiyon bağlantıları ve üç sorulu tercih rehberi içerir. Görsellerin 1024px PNG kaynakları korunur; sayfa daha küçük WebP sürümlerini kullanır. Fotoğraf hareketleri destekleyen tarayıcılarda doğal kaydırmaya bağlıdır ve azaltılmış hareket tercihini izler.
+
+Windows'ta kaynak klasör adında apostrof varsa Next.js metadata yükleyicisi derlemeyi bozabilir. Böyle bir durumda geçici bir sürücü eşlemesinden `npm run build -- --webpack` çalıştırıp işlem sonunda eşlemeyi kaldırın; yayın dosyaları yine aynı `out/` klasörüne yazılır.
+
 `out/` klasörünün **içeriği** alan adının web köküne (`public_html`) yüklenir. `out/` klasörünün kendisini alt klasör olarak yüklemeyin. `/` adresi statik `index.html` üzerinden `/tr/` sayfasına gider; `/en/`, `/de/` ve `/fr/` ayrı sayfalardır. Bu kaynakta doğrulanan alan adı `nardparfum.com`dur.
 
 ## İçerik ve işlevler

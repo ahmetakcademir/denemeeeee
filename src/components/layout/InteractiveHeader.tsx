@@ -1,91 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useStore, type Region } from "@/store/useStore";
-import CustomSoundToggle from "../ui/CustomSoundToggle";
-import NebulaRegionDrawer from "../brand/NebulaRegionDrawer";
+import { useRouter } from "next/navigation";
 
 export default function InteractiveHeader() {
-  const t = useTranslations("Navbar");
-  const currentRegion = useLocale() as Region;
-  const [isRegionOpen, setIsRegionOpen] = useState(false);
-  const setIsQuizActive = useStore((s) => s.setIsQuizActive);
-
-  return (
-    <>
-      <header className="fixed top-0 left-0 w-full z-30 glass-panel border-b border-white/5 py-4 px-4 md:px-12 flex justify-between items-center transition-all duration-300">
-        {/* Left Side: Logo & Coordinates */}
-        <div className="flex items-center gap-4">
-          <div className="relative w-8 h-8 group cursor-pointer flex items-center justify-center">
-            {/* World-class luxury interlocking N-R monogram with spring-based hover scaling and golden shadow glows */}
-            <svg 
-              className="w-7 h-7 transform transition-transform duration-500 group-hover:scale-110 filter drop-shadow-[0_0_8px_rgba(194,159,104,0.35)] group-hover:drop-shadow-[0_0_12px_rgba(194,159,104,0.7)]" 
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="headerLuxuryGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#F2D5A2" />
-                  <stop offset="50%" stop-color="#C29F68" />
-                  <stop offset="100%" stop-color="#8C6E3E" />
-                </linearGradient>
-              </defs>
-              <circle cx="50" cy="50" r="43" stroke="url(#headerLuxuryGold)" strokeWidth="0.8" opacity="0.3" />
-              <circle cx="50" cy="50" r="46" stroke="url(#headerLuxuryGold)" strokeWidth="1.8" />
-              <path d="M35 28 V72 M35 28 L51 72 M51 28 V72" stroke="url(#headerLuxuryGold)" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M51 28 H64 C70 28 70 45 64 45 H51 M58 45 L67 72" stroke="url(#headerLuxuryGold)" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <span className="text-2xl md:text-3xl font-bold tracking-widest text-[#ECE8E1] hover:text-[#C29F68] transition-colors duration-300 cursor-pointer select-none">
-            NARD
-          </span>
-          <div className="hidden lg:flex flex-col text-[9px] font-mono text-[#ECE8E1]/30 border-l border-white/10 pl-6 gap-0.5">
-            <span>SYS_LOCALE: {currentRegion.toUpperCase()}</span>
-            <span>SYSTEM_ONLINE: YES</span>
-          </div>
-        </div>
-
-        {/* Center: Editorial Links */}
-        <nav className="hidden md:flex items-center gap-8 text-[11px] font-mono tracking-widest text-[#ECE8E1]/70">
-          <a href="#collection" className="hover:text-[#C29F68] transition-colors duration-300">
-            {t("collections")}
-          </a>
-          <button 
-            onClick={() => setIsQuizActive(true)}
-            className="hover:text-[#C29F68] transition-colors duration-300 bg-transparent border-none p-0 cursor-pointer uppercase tracking-widest text-[11px] font-mono"
-          >
-            {t("quiz")}
-          </button>
-        </nav>
-
-        {/* Right Side: language and contact */}
-        <div className="flex items-center gap-2 md:gap-4">
-          {/* Sound Toggle */}
-          <div className="hidden sm:block"><CustomSoundToggle /></div>
-
-          {/* Region Toggle */}
-          <button
-            onClick={() => setIsRegionOpen(true)}
-            aria-label={`${t("region")}: ${currentRegion.toUpperCase()}`}
-            className="px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80 uppercase flex items-center gap-1.5"
-          >
-            <span aria-hidden="true">🌐</span>
-            <span>{currentRegion.toUpperCase()}</span>
-          </button>
-
-          <a
-            href="mailto:hello@akcastudio.com?subject=NARD%20Parf%C3%BCm"
-            className="relative px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80"
-          >
-            {currentRegion === "tr" ? "İletişim" : currentRegion === "de" ? "Kontakt" : currentRegion === "fr" ? "Contact" : "Contact"}
-          </a>
-        </div>
-      </header>
-
-      {/* Slide-out Panel Drawers */}
-      <NebulaRegionDrawer isOpen={isRegionOpen} onClose={() => setIsRegionOpen(false)} />
-    </>
-  );
+  const locale = useLocale();
+  const router = useRouter();
+  const t = useTranslations("Studio");
+  const n = useTranslations("Navbar");
+  return <header className="site-header"><div className="header-inner section-shell">
+    <a href={`/${locale}/`} className="brand-link" aria-label="NARD">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="1.8" /><circle cx="50" cy="50" r="42" stroke="currentColor" strokeOpacity=".3" /><path d="M35 28V72M35 28L51 72M51 28V72M51 28H64C70 28 70 45 64 45H51M58 45 67 72" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" /></svg><span>NARD</span>
+    </a>
+    <nav className="header-nav" aria-label={t("navigation")}><a href="#collection">{n("collections")}</a><a href="#guide">{t("findSignature")}</a><a href="#contact">{t("contact")}</a></nav>
+    <div className="language-control"><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.4" /><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z" stroke="currentColor" strokeWidth="1.4" /></svg><label htmlFor="site-language">{n("region")}</label><select id="site-language" value={locale} onChange={(event) => router.push(`/${event.target.value}/${window.location.hash}`)}><option value="tr">Türkçe</option><option value="en">English</option><option value="de">Deutsch</option><option value="fr">Français</option></select></div>
+  </div></header>;
 }

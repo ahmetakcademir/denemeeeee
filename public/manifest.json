@@ -1,11 +1,11 @@
 {
-  "name": "NARD — The Noble Scent & Silhouette",
+  "name": "NARD — Scent & Texture",
   "short_name": "NARD",
-  "description": "Pure organic luxury inspired by the Himalayan peaks.",
+  "description": "Explore NARD Spikenard fragrance, Heavyweight Polo and the Sovereign collection.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#111111",
+  "background_color": "#080c0a",
+  "theme_color": "#080c0a",
   "orientation": "any",
   "icons": [
     {
