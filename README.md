@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NARD Parfüm — statik vitrin
 
-## Getting Started
+Bu sürüm, önceki NARD mağaza tasarımını Hostinger'ın dosya barındırması için statik HTML, CSS ve JavaScript olarak üretir. Canlı ortamda Node.js süreci, veritabanı veya API gerekmez.
 
-First, run the development server:
+## Yerel geliştirme
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Yayın dosyalarını oluşturma
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm ci
+npm run lint
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`out/` klasörünün **içeriği** alan adının web köküne (`public_html`) yüklenir. `out/` klasörünün kendisini alt klasör olarak yüklemeyin. `/` adresi statik `index.html` üzerinden `/tr/` sayfasına gider; `/en/`, `/de/` ve `/fr/` ayrı sayfalardır. Bu kaynakta doğrulanan alan adı `nardparfum.com`dur.
 
-## Learn More
+## İçerik ve işlevler
 
-To learn more about Next.js, take a look at the following resources:
+- Ürün kataloğu `src/data/products.json` dosyasındadır. Değişikliklerden sonra yeniden derleyip `out/` içeriğini tekrar yükleyin.
+- Bu sürüm ürün tanıtımı ve iletişim içindir. Eski fiyatlar, sepet, sipariş ve WhatsApp akışı yayın paketine dahil değildir. Ürün bağlantıları doğrulanmış AKCA Studio iletişim e-postasına yönlenir.
+- Koku eşleştirmesi ziyaretçinin tarayıcısında çalışan sabit bir seçim kuralıdır; sunucu tabanlı yapay zekâ hizmeti değildir.
+- Önceki yönetici paneli, dosya yükleme ve API uçları statik sürümde yoktur. Yönetim işlemleri kaynak ve yeniden derleme üzerinden yapılır.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`out/` Git tarafından izlenmez. Eski Node.js uygulamasının kaynak geçmişi Git üzerinde kalır; bu dal statik dağıtım içindir.

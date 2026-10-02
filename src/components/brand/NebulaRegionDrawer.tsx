@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useStore, Region } from "@/store/useStore";
-import { useTranslations } from "next-intl";
+import { type Region } from "@/store/useStore";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,27 +12,13 @@ interface DrawerProps {
 
 export default function NebulaRegionDrawer({ isOpen, onClose }: DrawerProps) {
   const t = useTranslations("NebulaRegion");
-  const currentRegion = useStore((s) => s.currentRegion);
-  const setRegion = useStore((s) => s.setRegion);
+  const currentRegion = useLocale() as Region;
 
   const router = useRouter();
   const pathname = usePathname();
-  const [securePing, setSecurePing] = useState(8);
-
-  // Dynamic cyber metrics animation to show futuristic state
-  useEffect(() => {
-    if (!isOpen) return;
-    const interval = setInterval(() => {
-      setSecurePing(Math.floor(Math.random() * 5) + 6);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [isOpen]);
 
   const handleRegionChange = (region: Region) => {
-    // 1. Update Zustand store
-    setRegion(region);
-
-    // 2. Localized path routing sync
+    // Keep the URL as the single source of truth for the visible language.
     const segments = pathname.split("/");
     // First segment is empty, second is locale (e.g. "", "tr", "collection")
     if (segments[1] && ["tr", "en", "de", "fr"].includes(segments[1])) {
@@ -50,11 +35,11 @@ export default function NebulaRegionDrawer({ isOpen, onClose }: DrawerProps) {
     onClose();
   };
 
-  const regions: { id: Region; flag: string; labelKey: string; currency: string }[] = [
-    { id: "tr", flag: "🇹🇷", labelKey: "trRegion", currency: "TRY (₺)" },
-    { id: "en", flag: "🌐", labelKey: "enRegion", currency: "USD ($)" },
-    { id: "de", flag: "🇩🇪", labelKey: "deRegion", currency: "EUR (€)" },
-    { id: "fr", flag: "🇫🇷", labelKey: "frRegion", currency: "EUR (€)" },
+  const regions: { id: Region; flag: string; labelKey: string }[] = [
+    { id: "tr", flag: "🇹🇷", labelKey: "trRegion" },
+    { id: "en", flag: "🌐", labelKey: "enRegion" },
+    { id: "de", flag: "🇩🇪", labelKey: "deRegion" },
+    { id: "fr", flag: "🇫🇷", labelKey: "frRegion" },
   ];
 
   return (
@@ -117,32 +102,13 @@ export default function NebulaRegionDrawer({ isOpen, onClose }: DrawerProps) {
                       </span>
                     </div>
                     <span className={`text-xs font-mono ${isActive ? "text-[#C29F68]" : "text-[#ECE8E1]/50"}`}>
-                      {region.currency}
+                      {region.id.toUpperCase()}
                     </span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Dynamic cyber monospace active logs */}
-            <div className="mt-auto border-t border-white/5 pt-6 text-[10px] font-mono text-[#C29F68]/70 flex flex-col gap-2">
-              <div className="flex justify-between">
-                <span>SYSTEM_STATUS:</span>
-                <span className="text-green-500">SYNCHRONIZED</span>
-              </div>
-              <div className="flex justify-between">
-                <span>SECURE_GATE:</span>
-                <span>HOSTINGER_SECURE</span>
-              </div>
-              <div className="flex justify-between">
-                <span>FX_PINGS:</span>
-                <span>{securePing}ms</span>
-              </div>
-              <div className="flex justify-between">
-                <span>ACTIVE_LOCALE:</span>
-                <span className="uppercase">{currentRegion}</span>
-              </div>
-            </div>
           </motion.div>
         </>
       )}

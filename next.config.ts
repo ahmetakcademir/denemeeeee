@@ -1,20 +1,14 @@
 import createNextIntlPlugin from 'next-intl/plugin';
-import withPWAInit from '@ducanh2912/next-pwa';
 
 const withNextIntl = createNextIntlPlugin(
   './src/i18n/request.ts'
 );
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  workboxOptions: {
-    disableDevLogs: true
-  }
-});
 
 const nextConfig = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  output: 'export' as const,
+  trailingSlash: true,
+  images: { unoptimized: true }
 };
 
-export default withNextIntl(withPWA(nextConfig));
+export default withNextIntl(nextConfig);

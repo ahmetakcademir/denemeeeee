@@ -3,12 +3,6 @@
     "id": "nard-perfume-01",
     "nameKey": "Products.perfumeTitle",
     "descKey": "Products.perfumeDesc",
-    "basePrice": {
-      "tr": 1250,
-      "en": 85,
-      "de": 79,
-      "fr": 79
-    },
     "specs": {
       "tr": [
         "Üst Nota: Himalayalar Rüzgarı, Adaçayı, Bergamot",
@@ -36,12 +30,6 @@
     "id": "nard-polo-01",
     "nameKey": "Products.poloTitle",
     "descKey": "Products.poloDesc",
-    "basePrice": {
-      "tr": 1450,
-      "en": 95,
-      "de": 89,
-      "fr": 89
-    },
     "specs": {
       "tr": [
         "Ağırlık: 280 GSM Heavyweight",
@@ -68,13 +56,7 @@
   "pack": {
     "id": "nard-sovereign-pack",
     "nameKey": "Quiz.matchPack",
-    "descKey": "Quiz.packDesc",
-    "basePrice": {
-      "tr": 2400,
-      "en": 160,
-      "de": 148,
-      "fr": 148
-    }
+    "descKey": "Quiz.packDesc"
   },
   "customProducts": []
 }

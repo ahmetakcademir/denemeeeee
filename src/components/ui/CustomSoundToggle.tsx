@@ -27,7 +27,8 @@ export default function CustomSoundToggle() {
 
   const startAmbientSynthesis = () => {
     // 1. Initialize Audio Context
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return;
     const ctx = new AudioContextClass();
     audioCtxRef.current = ctx;
 

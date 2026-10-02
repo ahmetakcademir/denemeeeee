@@ -108,12 +108,6 @@ export default function FluidSimulation() {
   const hoveredProduct = useStore((s) => s.hoveredProduct);
 
   useEffect(() => {
-    // Dynamic HSL to GLSL RGB values
-    // Sage Green: #5E6D62 => rgb(0.368, 0.427, 0.384)
-    // Himalayan Gold: #C29F68 => rgb(0.76, 0.623, 0.407)
-    const baseColor = [0.368, 0.427, 0.384]; // Sage
-    const accentColor = [0.76, 0.623, 0.407]; // Amber Gold
-
     if (hoveredProduct === "perfume") {
       state.current.targetAccentWeight = 1.0; // Fully Amber
     } else if (hoveredProduct === "polo") {
@@ -126,11 +120,13 @@ export default function FluidSimulation() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // A still gradient preserves the atmosphere on phones and for reduced motion.
+    if (window.matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)").matches) return;
 
-    let gl = canvas.getContext("webgl");
+    const gl = canvas.getContext("webgl");
     if (!gl) {
       // Fallback: 2D Canvas animation if WebGL is unsupported
-      let ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
       if (!ctx) return;
       let frameId: number;
 
@@ -249,13 +245,20 @@ export default function FluidSimulation() {
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     let animationFrameId: number;
+    let lastRender = 0;
+    const frameInterval = window.matchMedia("(max-width: 767px)").matches ? 1000 / 30 : 1000 / 60;
 
-    const render = () => {
+    const render = (timestamp: number) => {
       // Visibility checks to save user CPU/Battery when tab is backgrounded (Phase 7 Optimization)
       if (document.visibilityState === "hidden") {
         animationFrameId = requestAnimationFrame(render);
         return;
       }
+      if (timestamp - lastRender < frameInterval) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+      lastRender = timestamp;
 
       state.current.time += 0.012;
       
@@ -278,7 +281,7 @@ export default function FluidSimulation() {
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    animationFrameId = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
@@ -289,9 +292,15 @@ export default function FluidSimulation() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-50 h-screen w-screen object-cover opacity-90 transition-opacity duration-1000 pointer-events-none"
-    />
+    <>
+      <div
+        className="fixed inset-0 -z-50 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 38% 28%, #26382f 0%, #161c1a 38%, #0b0b0b 78%)" }}
+      />
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 -z-50 hidden h-screen w-screen object-cover opacity-90 transition-opacity duration-1000 pointer-events-none md:block"
+      />
+    </>
   );
 }

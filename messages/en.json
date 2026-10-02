@@ -3,8 +3,7 @@
     "collections": "Collections",
     "quiz": "Scent Synthesizer",
     "story": "Brand Story",
-    "cart": "Cart",
-    "region": "Region / Currency",
+    "region": "Language",
     "coords": "COORDINATES"
   },
   "Hero": {
@@ -18,9 +17,9 @@
   "Products": {
     "collections": "Collections",
     "perfumeTitle": "NARD Spikenard Perfume",
-    "perfumeDesc": "Reborn through modern molecular synthesis, the noble oil of rare spikenard roots harvested from 4000m altitudes in the Himalayas. Earthy, rich amber, and calm velvet.",
+    "perfumeDesc": "A NARD fragrance concept shaped by spikenard, earthy notes and warm amber.",
     "poloTitle": "NARD Heavyweight Polo",
-    "poloDesc": "280 GSM premium heavyweight, 100% organic linen-cotton blend. Tailored in a tactile sage green weave for an exquisite presence.",
+    "poloDesc": "A NARD polo design defined by its sage green tone, texture and clean lines.",
     "notesTitle": "Molecular Scent Notes",
     "notesTop": "Top Notes: Himalayan Breeze, Clary Sage, Bergamot",
     "notesHeart": "Heart Notes: Pure Spikenard Oil, Dry Rose, Marble Dust",
@@ -28,17 +27,15 @@
     "featuresTitle": "Fabric Details",
     "featuresGsm": "Weight: 280 GSM Heavyweight",
     "featuresKnit": "Knit: Technical Linen & Organic Cotton",
-    "featuresColor": "Color: Sage Green / Anthracite",
-    "addToCart": "Add to Cart"
+    "featuresColor": "Color: Sage Green / Anthracite"
   },
   "NebulaRegion": {
-    "title": "Regional Control Panel",
-    "selectDesc": "Please select your preferred region. Language and currency will be synchronized automatically.",
-    "trRegion": "Turkey (TR - ₺)",
-    "enRegion": "Global (EN - $)",
-    "deRegion": "Germany (DE - €)",
-    "frRegion": "France (FR - €)",
-    "activeRate": "ACTIVE DATA SENSORS",
+    "title": "Choose a Language",
+    "selectDesc": "Choose the language in which you want to view the collection.",
+    "trRegion": "Türkçe",
+    "enRegion": "English",
+    "deRegion": "Deutsch",
+    "frRegion": "Français",
     "close": "CLOSE"
   },
   "Quiz": {
@@ -60,15 +57,7 @@
     "q3a3": "Supple knit structures with soft gold stitching",
     "resultTitle": "Synthesis Result",
     "resultDesc": "Synthesized based on your emotional state, scent molecules, and tactile profile:",
-    "matchPack": "Sovereign Pack (Buy as Set)",
-    "packDesc": "Your customized NARD Perfume paired with the 100% harmonized NARD Organic Polo.",
-    "addPack": "Add Sovereign Pack to Cart"
-  },
-  "Cart": {
-    "title": "My Cart",
-    "empty": "Your cart is empty. Would you like to synthesize your custom molecule?",
-    "total": "TOTAL BALANCE",
-    "checkout": "Complete Checkout (Powered by Hostinger)",
-    "remove": "Remove"
+    "matchPack": "NARD Sovereign Pack",
+    "packDesc": "A collection pairing the NARD fragrance and polo designs."
   }
 }

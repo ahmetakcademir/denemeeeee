@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Fira_Code, Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import "@/styles/globals.css";
-import ToastContainer from "@/components/ui/ToastContainer";
 
 // Optimize Google Fonts at build time to prevent CLS
 const cormorant = Cormorant_Garamond({
@@ -35,6 +34,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nardparfum.com"),
   manifest: "/manifest.json",
   title: "NARD — The Noble Scent & Silhouette",
   description: "Pure organic luxury inspired by the Himalayan peaks. Harmonizing custom spikenard scents with heavyweight organic linen-cotton polo t-shirts.",
@@ -53,6 +53,12 @@ interface LocaleLayoutProps {
   }>;
 }
 
+const locales = ["tr", "en", "de", "fr"] as const;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -60,31 +66,19 @@ export default async function LocaleLayout({
   const { locale } = await params;
 
   // Validate locale
-  const locales = ["tr", "en", "de", "fr"];
-  if (!locales.includes(locale)) notFound();
+  if (!locales.includes(locale as (typeof locales)[number])) notFound();
+  setRequestLocale(locale);
 
   // Load static translations
   const messages = await getMessages();
 
-  // Dynamic Google JSON-LD Product & Brand Schema (SEO Power)
+  // Brand information can be published without asserting unverified stock or prices.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "NARD Sovereign Pack",
-    "image": "https://nardparfum.com/nard-sovereign-pack.jpg",
-    "description": "Exquisite bespoke Spikenard Perfume paired with heavyweight organic knit polo t-shirt.",
-    "brand": {
-      "@type": "Brand",
-      "name": "NARD"
-    },
-    "offers": {
-      "@type": "AggregateOffer",
-      "priceCurrency": locale === "tr" ? "TRY" : locale === "en" ? "USD" : "EUR",
-      "lowPrice": locale === "tr" ? "2700" : locale === "en" ? "180" : "168",
-      "highPrice": locale === "tr" ? "2700" : locale === "en" ? "180" : "168",
-      "offerCount": "1",
-      "availability": "https://schema.org/InStock"
-    }
+    "@type": "Brand",
+    "name": "NARD",
+    "url": "https://nardparfum.com",
+    "logo": "https://nardparfum.com/favicon.svg"
   };
 
   return (
@@ -99,7 +93,6 @@ export default async function LocaleLayout({
       <body className="bg-[#111111] text-[#ECE8E1] antialiased selection:bg-[#C29F68] selection:text-[#111111]">
         <NextIntlClientProvider messages={messages}>
           {children}
-          <ToastContainer />
         </NextIntlClientProvider>
       </body>
     </html>
