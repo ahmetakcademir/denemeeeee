@@ -21,8 +21,8 @@ npm run build
 
 ## İçerik ve işlevler
 
-- Ürünler ve bölgesel fiyatlar `src/data/products.json` dosyasındadır. Değişikliklerden sonra yeniden derleyip `out/` içeriğini tekrar yükleyin.
-- Sepet tarayıcıda çalışır; ödeme almak yerine mevcut mağaza WhatsApp hattına bir sipariş talebi açar. Gerçek sipariş ve fiyatların işletme tarafından ayrıca teyit edilmesi gerekir.
+- Ürün kataloğu `src/data/products.json` dosyasındadır. Değişikliklerden sonra yeniden derleyip `out/` içeriğini tekrar yükleyin.
+- Bu sürüm ürün tanıtımı ve iletişim içindir. Eski fiyatlar, sepet, sipariş ve WhatsApp akışı yayın paketine dahil değildir. Ürün bağlantıları doğrulanmış AKCA Studio iletişim e-postasına yönlenir.
 - Koku eşleştirmesi ziyaretçinin tarayıcısında çalışan sabit bir seçim kuralıdır; sunucu tabanlı yapay zekâ hizmeti değildir.
 - Önceki yönetici paneli, dosya yükleme ve API uçları statik sürümde yoktur. Yönetim işlemleri kaynak ve yeniden derleme üzerinden yapılır.
 

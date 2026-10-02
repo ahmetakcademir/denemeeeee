@@ -120,7 +120,8 @@ export default function FluidSimulation() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // A still gradient preserves the atmosphere on phones and for reduced motion.
+    if (window.matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)").matches) return;
 
     const gl = canvas.getContext("webgl");
     if (!gl) {
@@ -291,9 +292,15 @@ export default function FluidSimulation() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-50 h-screen w-screen object-cover opacity-90 transition-opacity duration-1000 pointer-events-none"
-    />
+    <>
+      <div
+        className="fixed inset-0 -z-50 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 38% 28%, #26382f 0%, #161c1a 38%, #0b0b0b 78%)" }}
+      />
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 -z-50 hidden h-screen w-screen object-cover opacity-90 transition-opacity duration-1000 pointer-events-none md:block"
+      />
+    </>
   );
 }

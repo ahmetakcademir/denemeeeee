@@ -3,11 +3,21 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useStore, type Region } from "@/store/useStore";
-import { PRODUCTS, SOVEREIGN_PACK, formatRegionalPrice } from "@/utils/productData";
+import { PRODUCTS, SOVEREIGN_PACK } from "@/utils/productData";
 import { motion, AnimatePresence } from "framer-motion";
 import FluidSimulation from "@/components/canvas/FluidSimulation";
 import InteractiveHeader from "@/components/layout/InteractiveHeader";
 import ParallaxCard3D from "@/components/ui/3DParallaxCard";
+
+const contactLabel: Record<Region, string> = {
+  tr: "Bilgi Al",
+  en: "Enquire",
+  de: "Anfragen",
+  fr: "Se renseigner",
+};
+
+const contactHref = (name: string) =>
+  `mailto:hello@akcastudio.com?subject=${encodeURIComponent(`NARD Parfüm | ${name}`)}`;
 
 export default function Home() {
   const t = useTranslations("Hero");
@@ -15,20 +25,12 @@ export default function Home() {
   const tq = useTranslations("Quiz");
 
   const currentRegion = useLocale() as Region;
-  const addToCart = useStore((s) => s.addToCart);
-
   // The catalog is bundled at build time; visitors never need a Node.js API.
   const dbProducts = useStore((s) => s.dbProducts);
-
-  // Bind dynamic prices
-  const perfumePrice = dbProducts ? dbProducts.perfume.basePrice[currentRegion] : PRODUCTS.perfume.basePrice[currentRegion];
-  const poloPrice = dbProducts ? dbProducts.polo.basePrice[currentRegion] : PRODUCTS.polo.basePrice[currentRegion];
-  const packPrice = dbProducts ? dbProducts.pack.basePrice[currentRegion] : SOVEREIGN_PACK.basePrice[currentRegion];
 
   // Quiz states
   const isQuizActive = useStore((s) => s.isQuizActive);
   const setIsQuizActive = useStore((s) => s.setIsQuizActive);
-  const addToast = useStore((s) => s.addToast);
 
   const [quizStep, setQuizStep] = useState(1);
   const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
@@ -69,9 +71,7 @@ export default function Home() {
         id: PRODUCTS.perfume.id,
         name: currentRegion === "tr" ? "NARD Spikenard Parfüm" : "NARD Spikenard Perfume",
         desc: currentRegion === "tr" ? "Himalayalar'ın zirvesinden gelen asil koku." : "Noble fragrance from the Himalayan heights.",
-        price: perfumePrice,
         image: "/perfume.png",
-        type: "perfume" as const
       };
     }
     if (id === PRODUCTS.polo.id) {
@@ -79,9 +79,7 @@ export default function Home() {
         id: PRODUCTS.polo.id,
         name: currentRegion === "tr" ? "NARD Sage Green Polo Tişört" : "NARD Sage Green Polo Shirt",
         desc: currentRegion === "tr" ? "280 GSM organik keten pamuk örgü tişört." : "280 GSM organic linen cotton knit polo.",
-        price: poloPrice,
         image: "/polo.png",
-        type: "polo" as const
       };
     }
     
@@ -95,9 +93,7 @@ export default function Home() {
           id: custom.id,
           name: localizedName,
           desc: localizedDesc,
-          price: custom.basePrice[currentRegion] || custom.basePrice.tr,
           image: custom.image,
-          type: "custom" as const
         };
       }
     }
@@ -107,26 +103,8 @@ export default function Home() {
       id: SOVEREIGN_PACK.id,
       name: currentRegion === "tr" ? "NARD Sovereign Set" : "NARD Sovereign Pack Set",
       desc: currentRegion === "tr" ? "Parfüm ve polo tişört asil kombinasyonu." : "The luxury fragrance and clothing combination.",
-      price: packPrice,
       image: "/sovereign-pack.png",
-      type: "pack" as const
     };
-  };
-
-  const handleAddMatchedToCart = (matched: ReturnType<typeof getMatchedProductDetails>) => {
-    addToCart({
-      id: matched.id,
-      nameKey: matched.name,
-      price: matched.price,
-      type: matched.type === "custom" ? "custom" : matched.type,
-    });
-    resetQuiz();
-    addToast(
-      currentRegion === "tr"
-        ? `${matched.name} sepete eklendi!`
-        : `${matched.name} added to cart!`,
-      "success"
-    );
   };
 
   // Helper to split translation specs by colon dynamically (enabling gorgeous dual-side lookbook rows)
@@ -262,33 +240,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center mt-auto pt-4 border-t border-white/5">
-                  <div className="flex flex-col">
-                    <span className="text-[8px] font-mono text-[#ECE8E1]/30 tracking-wider">PRICE // REGIONAL_VAL</span>
-                    <span className="text-3xl font-serif font-light text-[#ECE8E1] tracking-wide mt-0.5">
-                      {formatRegionalPrice(perfumePrice, currentRegion)}
-                    </span>
-                  </div>
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => {
-                      addToCart({
-                        id: PRODUCTS.perfume.id,
-                        nameKey: PRODUCTS.perfume.nameKey,
-                        price: perfumePrice,
-                        type: "perfume",
-                      });
-                      addToast(
-                        currentRegion === "tr"
-                          ? "NARD Spikenard Parfüm sepete eklendi!"
-                          : "NARD Spikenard Perfume added to cart!",
-                        "success"
-                      );
-                    }}
-                    className="px-8 py-4 bg-transparent border border-[#C29F68] hover:bg-[#C29F68] hover:text-[#0b0b0b] text-[#C29F68] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-amber-hover"
+                <div className="flex justify-end mt-auto pt-4 border-t border-white/5">
+                  <a
+                    href={contactHref(tp("perfumeTitle"))}
+                    className="px-8 py-4 bg-transparent border border-[#C29F68] hover:bg-[#C29F68] hover:text-[#0b0b0b] text-[#C29F68] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury uppercase glow-amber-hover"
                   >
-                    {tp("addToCart")}
-                  </motion.button>
+                    {contactLabel[currentRegion]}
+                  </a>
                 </div>
               </div>
             </ParallaxCard3D>
@@ -356,33 +314,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center mt-auto pt-4 border-t border-white/5">
-                  <div className="flex flex-col">
-                    <span className="text-[8px] font-mono text-[#ECE8E1]/30 tracking-wider">PRICE // REGIONAL_VAL</span>
-                    <span className="text-3xl font-serif font-light text-[#ECE8E1] tracking-wide mt-0.5">
-                      {formatRegionalPrice(poloPrice, currentRegion)}
-                    </span>
-                  </div>
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => {
-                      addToCart({
-                        id: PRODUCTS.polo.id,
-                        nameKey: PRODUCTS.polo.nameKey,
-                        price: poloPrice,
-                        type: "polo",
-                      });
-                      addToast(
-                        currentRegion === "tr"
-                          ? "NARD Heavyweight Polo sepete eklendi!"
-                          : "NARD Heavyweight Polo added to cart!",
-                        "success"
-                      );
-                    }}
-                    className="px-8 py-4 bg-transparent border border-[#5E6D62] hover:bg-[#5E6D62] hover:text-[#ece8e1] text-[#5E6D62] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-sage-hover"
+                <div className="flex justify-end mt-auto pt-4 border-t border-white/5">
+                  <a
+                    href={contactHref(tp("poloTitle"))}
+                    className="px-8 py-4 bg-transparent border border-[#5E6D62] hover:bg-[#5E6D62] hover:text-[#ece8e1] text-[#5E6D62] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury uppercase glow-sage-hover"
                   >
-                    {tp("addToCart")}
-                  </motion.button>
+                    {contactLabel[currentRegion]}
+                  </a>
                 </div>
               </div>
             </ParallaxCard3D>
@@ -402,7 +340,6 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12 items-stretch">
               {dbProducts.customProducts.map((product) => {
-                const priceValue = product.basePrice[currentRegion] ?? product.basePrice.tr;
                 const catColors: Record<string, string> = {
                   parfum: "#C29F68",
                   giyim: "#5E6D62",
@@ -485,37 +422,14 @@ export default function Home() {
                           )}
                         </div>
 
-                        {/* Price & Cart button */}
-                        <div className="flex justify-between items-center mt-auto pt-5 border-t border-white/5">
-                          <div className="flex flex-col">
-                            <span className="text-[8px] font-mono text-[#ECE8E1]/30 tracking-wider mb-0.5">PRICE // VALUE</span>
-                            <span className="text-2xl font-serif font-light text-[#ECE8E1]">
-                              {formatRegionalPrice(priceValue, currentRegion)}
-                            </span>
-                          </div>
-                          <motion.button
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => {
-                              addToCart({
-                                id: product.id,
-                                nameKey: localizedName,
-                                price: priceValue,
-                                type: "custom",
-                              });
-                              addToast(
-                                currentRegion === "tr"
-                                  ? `${localizedName} sepete eklendi!`
-                                  : `${localizedName} added to cart!`,
-                                "success"
-                              );
-                            }}
-                            className="px-6 py-3 bg-transparent text-[10px] font-mono font-semibold tracking-[0.2em] uppercase transition-luxury border cursor-pointer"
+                        <div className="flex justify-end mt-auto pt-5 border-t border-white/5">
+                          <a
+                            href={contactHref(localizedName)}
+                            className="px-6 py-3 bg-transparent text-[10px] font-mono font-semibold tracking-[0.2em] uppercase transition-luxury border"
                             style={{ borderColor: accent, color: accent }}
-                            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = accent; (e.currentTarget as HTMLButtonElement).style.color = "#0b0b0b"; }}
-                            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = accent; }}
                           >
-                            {currentRegion === "tr" ? "Sepete Ekle" : "Add to Cart"}
-                          </motion.button>
+                            {contactLabel[currentRegion]}
+                          </a>
                         </div>
                       </div>
                     </ParallaxCard3D>
@@ -715,20 +629,13 @@ export default function Home() {
                             : tq("packDesc")}
                         </p>
                         
-                        <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
-                          <div className="flex flex-col">
-                            <span className="text-[8px] font-mono text-[#ECE8E1]/30 tracking-wider">SET_PRICE // SPECIAL_MATCH</span>
-                            <span className="text-2xl font-serif font-light text-[#ECE8E1] tracking-wide mt-0.5">
-                              {formatRegionalPrice(matched.price, currentRegion)}
-                            </span>
-                          </div>
-                          <motion.button
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => handleAddMatchedToCart(matched)}
-                            className="px-8 py-4 bg-[#C29F68] hover:bg-transparent border border-[#C29F68] hover:text-[#C29F68] text-[#0b0b0b] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-amber-hover"
+                        <div className="flex justify-end mt-6 pt-4 border-t border-white/5">
+                          <a
+                            href={contactHref(matched.name)}
+                            className="px-8 py-4 bg-[#C29F68] hover:bg-transparent border border-[#C29F68] hover:text-[#C29F68] text-[#0b0b0b] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury uppercase glow-amber-hover"
                           >
-                            {currentRegion === "tr" ? "Sepete Ekle" : "Add to Cart"}
-                          </motion.button>
+                            {contactLabel[currentRegion]}
+                          </a>
                         </div>
                       </div>
                     );
@@ -781,20 +688,13 @@ export default function Home() {
                       {tq("packDesc")}
                     </p>
                     
-                    <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
-                      <div className="flex flex-col">
-                        <span className="text-[8px] font-mono text-[#ECE8E1]/30 tracking-wider">SET_PRICE // SPECIAL_MATCH</span>
-                        <span className="text-3xl font-serif font-light text-[#ECE8E1] tracking-wide mt-0.5">
-                          {formatRegionalPrice(packPrice, currentRegion)}
-                        </span>
-                      </div>
-                      <motion.button
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => handleAddMatchedToCart(getMatchedProductDetails(SOVEREIGN_PACK.id))}
-                        className="px-8 py-4 bg-[#C29F68] hover:bg-transparent border border-[#C29F68] hover:text-[#C29F68] text-[#0b0b0b] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-amber-hover"
+                    <div className="flex justify-end mt-6 pt-4 border-t border-white/5">
+                      <a
+                        href={contactHref(tq("matchPack"))}
+                        className="px-8 py-4 bg-[#C29F68] hover:bg-transparent border border-[#C29F68] hover:text-[#C29F68] text-[#0b0b0b] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury uppercase glow-amber-hover"
                       >
-                        {tq("addPack")}
-                      </motion.button>
+                        {contactLabel[currentRegion]}
+                      </a>
                     </div>
                   </div>
                 </div>

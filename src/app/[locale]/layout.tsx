@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import "@/styles/globals.css";
-import ToastContainer from "@/components/ui/ToastContainer";
 
 // Optimize Google Fonts at build time to prevent CLS
 const cormorant = Cormorant_Garamond({
@@ -94,7 +93,6 @@ export default async function LocaleLayout({
       <body className="bg-[#111111] text-[#ECE8E1] antialiased selection:bg-[#C29F68] selection:text-[#111111]">
         <NextIntlClientProvider messages={messages}>
           {children}
-          <ToastContainer />
         </NextIntlClientProvider>
       </body>
     </html>

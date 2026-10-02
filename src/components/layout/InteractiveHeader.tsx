@@ -5,18 +5,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { useStore, type Region } from "@/store/useStore";
 import CustomSoundToggle from "../ui/CustomSoundToggle";
 import NebulaRegionDrawer from "../brand/NebulaRegionDrawer";
-import CartDrawer from "../product/CartDrawer";
 
 export default function InteractiveHeader() {
   const t = useTranslations("Navbar");
   const currentRegion = useLocale() as Region;
-  const cartItems = useStore((s) => s.cartItems);
-
   const [isRegionOpen, setIsRegionOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const setIsQuizActive = useStore((s) => s.setIsQuizActive);
-
-  const totalCartQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <>
@@ -44,9 +38,9 @@ export default function InteractiveHeader() {
               <path d="M51 28 H64 C70 28 70 45 64 45 H51 M58 45 L67 72" stroke="url(#headerLuxuryGold)" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-widest text-[#ECE8E1] hover:text-[#C29F68] transition-colors duration-300 cursor-pointer select-none">
+          <span className="text-2xl md:text-3xl font-bold tracking-widest text-[#ECE8E1] hover:text-[#C29F68] transition-colors duration-300 cursor-pointer select-none">
             NARD
-          </h1>
+          </span>
           <div className="hidden lg:flex flex-col text-[9px] font-mono text-[#ECE8E1]/30 border-l border-white/10 pl-6 gap-0.5">
             <span>SYS_LOCALE: {currentRegion.toUpperCase()}</span>
             <span>SYSTEM_ONLINE: YES</span>
@@ -66,7 +60,7 @@ export default function InteractiveHeader() {
           </button>
         </nav>
 
-        {/* Right Side: Region, Cart & Audio toggles */}
+        {/* Right Side: language and contact */}
         <div className="flex items-center gap-2 md:gap-4">
           {/* Sound Toggle */}
           <div className="hidden sm:block"><CustomSoundToggle /></div>
@@ -81,20 +75,17 @@ export default function InteractiveHeader() {
             <span>{currentRegion.toUpperCase()}</span>
           </button>
 
-          {/* Cart Icon */}
-          <button
-            onClick={() => setIsCartOpen(true)}
-            className="relative px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80 flex items-center gap-2"
+          <a
+            href="mailto:hello@akcastudio.com?subject=NARD%20Parf%C3%BCm"
+            className="relative px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80"
           >
-            <span>{t("cart")}</span>
-            <span className="text-[#C29F68] font-bold">({totalCartQuantity})</span>
-          </button>
+            {currentRegion === "tr" ? "İletişim" : currentRegion === "de" ? "Kontakt" : currentRegion === "fr" ? "Contact" : "Contact"}
+          </a>
         </div>
       </header>
 
       {/* Slide-out Panel Drawers */}
       <NebulaRegionDrawer isOpen={isRegionOpen} onClose={() => setIsRegionOpen(false)} />
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 }
