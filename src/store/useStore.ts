@@ -1,11 +1,12 @@
 import { create } from "zustand";
+import catalog from "@/data/products.json";
 
 export interface CartItem {
   id: string;
   nameKey: string; // Message key for internationalization
   price: number;
   quantity: number;
-  type: "perfume" | "polo" | "pack";
+  type: "perfume" | "polo" | "pack" | "custom";
 }
 
 export type Region = "tr" | "en" | "de" | "fr";
@@ -42,6 +43,19 @@ export interface DBProductDataset {
   whatsappNumber?: string;
 }
 
+const staticCatalog = catalog as DBProductDataset;
+
+function getRegionalPrice(item: CartItem, region: Region, products: DBProductDataset): number {
+  const product = item.id === products.perfume.id
+    ? products.perfume
+    : item.id === products.polo.id
+    ? products.polo
+    : item.id === products.pack.id
+    ? products.pack
+    : products.customProducts?.find((custom) => custom.id === item.id);
+  return product?.basePrice[region] ?? item.price;
+}
+
 export interface ToastMessage {
   id: string;
   message: string;
@@ -62,7 +76,6 @@ interface State {
   addToCart: (item: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
-  setDbProducts: (products: DBProductDataset) => void;
   setIsQuizActive: (active: boolean) => void;
   addToast: (message: string, type?: "success" | "info" | "error") => void;
   removeToast: (id: string) => void;
@@ -76,11 +89,17 @@ export const useStore = create<State>((set) => ({
   hoveredProduct: null,
   isAudioEnabled: false,
   cartItems: [],
-  dbProducts: null,
+  dbProducts: staticCatalog,
   isQuizActive: false,
   toasts: [],
 
-  setRegion: (region) => set({ currentRegion: region }),
+  setRegion: (region) => set((state) => ({
+    currentRegion: region,
+    cartItems: state.cartItems.map((item) => ({
+      ...item,
+      price: getRegionalPrice(item, region, state.dbProducts ?? staticCatalog),
+    })),
+  })),
 
   setHoveredProduct: (product) => set({ hoveredProduct: product }),
 
@@ -105,12 +124,6 @@ export const useStore = create<State>((set) => ({
     })),
 
   clearCart: () => set({ cartItems: [] }),
-
-  setDbProducts: (products) =>
-    set((state) => ({
-      dbProducts: products,
-      whatsappNumber: products.whatsappNumber || state.whatsappNumber,
-    })),
 
   setIsQuizActive: (active) => set({ isQuizActive: active }),
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { useStore } from "@/store/useStore";
+import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useStore, type Region } from "@/store/useStore";
 import { PRODUCTS, SOVEREIGN_PACK, formatRegionalPrice } from "@/utils/productData";
 import { motion, AnimatePresence } from "framer-motion";
 import FluidSimulation from "@/components/canvas/FluidSimulation";
@@ -14,23 +14,11 @@ export default function Home() {
   const tp = useTranslations("Products");
   const tq = useTranslations("Quiz");
 
-  const currentRegion = useStore((s) => s.currentRegion);
+  const currentRegion = useLocale() as Region;
   const addToCart = useStore((s) => s.addToCart);
-  
-  // Dynamic JSON Hydration States
-  const dbProducts = useStore((s) => s.dbProducts);
-  const setDbProducts = useStore((s) => s.setDbProducts);
 
-  useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && !data.error) {
-          setDbProducts(data);
-        }
-      })
-      .catch((err) => console.error("NARD Storefront: Dynamic hydration failed:", err));
-  }, [setDbProducts]);
+  // The catalog is bundled at build time; visitors never need a Node.js API.
+  const dbProducts = useStore((s) => s.dbProducts);
 
   // Bind dynamic prices
   const perfumePrice = dbProducts ? dbProducts.perfume.basePrice[currentRegion] : PRODUCTS.perfume.basePrice[currentRegion];
@@ -45,35 +33,14 @@ export default function Home() {
   const [quizStep, setQuizStep] = useState(1);
   const [quizAnswers, setQuizAnswers] = useState<number[]>([]);
   const [isQuizComplete, setIsQuizComplete] = useState(false);
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiResult, setAiResult] = useState<{
-    breakdown: string;
-    recipeExplanation: string;
-    matchedProductId: string;
-  } | null>(null);
+  const [quizResult, setQuizResult] = useState<string | null>(null);
 
-  const fetchAiSynthesis = async (answers: number[]) => {
-    setAiLoading(true);
-    setAiResult(null);
-    try {
-      const res = await fetch("/api/ai/synthesis", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers, locale: currentRegion }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setAiResult({
-          breakdown: data.breakdown,
-          recipeExplanation: data.recipeExplanation,
-          matchedProductId: data.matchedProductId
-        });
-      }
-    } catch (err) {
-      console.error("NARD Storefront: AI Scent synthesis failed:", err);
-    } finally {
-      setAiLoading(false);
-    }
+  // A curated on-device recommendation keeps the quiz usable on static hosting.
+  const matchProduct = (answers: number[]) => {
+    const [mood, scent, texture] = answers;
+    if (scent === 1 && mood !== 3) return PRODUCTS.perfume.id;
+    if (texture === 1 && mood !== 3) return PRODUCTS.polo.id;
+    return SOVEREIGN_PACK.id;
   };
 
   const handleQuizAnswer = (answerIndex: number) => {
@@ -84,7 +51,7 @@ export default function Home() {
       setQuizStep(quizStep + 1);
     } else {
       setIsQuizComplete(true);
-      fetchAiSynthesis(updatedAnswers);
+      setQuizResult(matchProduct(updatedAnswers));
     }
   };
 
@@ -92,7 +59,7 @@ export default function Home() {
     setQuizStep(1);
     setQuizAnswers([]);
     setIsQuizComplete(false);
-    setAiResult(null);
+    setQuizResult(null);
     setIsQuizActive(false);
   };
 
@@ -151,7 +118,7 @@ export default function Home() {
       id: matched.id,
       nameKey: matched.name,
       price: matched.price,
-      type: matched.type === "custom" ? "custom" as any : matched.type,
+      type: matched.type === "custom" ? "custom" : matched.type,
     });
     resetQuiz();
     addToast(
@@ -186,9 +153,9 @@ export default function Home() {
       {/* Hero Section — Lookbook Minimalist Vibe */}
       <section className="min-h-[85vh] w-full flex flex-col justify-center items-center text-center px-6 relative">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl flex flex-col items-center gap-6"
         >
           <h1 className="text-6xl md:text-9xl font-light tracking-[0.25em] md:tracking-[0.35em] text-[#ECE8E1] select-none hover:text-[#C29F68] transition-colors duration-700 uppercase">
@@ -226,7 +193,7 @@ export default function Home() {
             NARD // THE DUAL ESSENCE
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-[#ECE8E1] mt-2">
-            {tp("collections" as any)}
+            {tp("collections")}
           </h2>
         </div>
 
@@ -260,20 +227,20 @@ export default function Home() {
                   </div>
 
                   <h3 className="text-3xl md:text-4xl font-light text-[#ECE8E1] tracking-wide">
-                    {tp("perfumeTitle" as any)}
+                    {tp("perfumeTitle")}
                   </h3>
                   <p className="text-xs text-[#ECE8E1]/65 leading-relaxed font-light mt-4 font-sans">
-                    {tp("perfumeDesc" as any)}
+                    {tp("perfumeDesc")}
                   </p>
                 </div>
 
                 {/* Scent Molecular Notes Symmetrical Rows */}
                 <div className="my-6 flex flex-col gap-3">
                   <span className="text-[#ECE8E1]/45 uppercase tracking-[0.2em] text-[9px] font-semibold block">
-                    {tp("notesTitle" as any)}
+                    {tp("notesTitle")}
                   </span>
                   <div className="flex flex-col gap-2">
-                    {(dbProducts?.perfume.specs?.[currentRegion] || [tp("notesTop" as any), tp("notesHeart" as any), tp("notesBase" as any)]).map((noteText, idx) => {
+                    {(dbProducts?.perfume.specs?.[currentRegion] || [tp("notesTop"), tp("notesHeart"), tp("notesBase")]).map((noteText, idx) => {
                       const { label, value } = renderSpecRow(noteText);
                       return (
                         <div 
@@ -320,7 +287,7 @@ export default function Home() {
                     }}
                     className="px-8 py-4 bg-transparent border border-[#C29F68] hover:bg-[#C29F68] hover:text-[#0b0b0b] text-[#C29F68] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-amber-hover"
                   >
-                    {tp("addToCart" as any)}
+                    {tp("addToCart")}
                   </motion.button>
                 </div>
               </div>
@@ -354,20 +321,20 @@ export default function Home() {
                   </div>
 
                   <h3 className="text-3xl md:text-4xl font-light text-[#ECE8E1] tracking-wide">
-                    {tp("poloTitle" as any)}
+                    {tp("poloTitle")}
                   </h3>
                   <p className="text-xs text-[#ECE8E1]/65 leading-relaxed font-light mt-4 font-sans">
-                    {tp("poloDesc" as any)}
+                    {tp("poloDesc")}
                   </p>
                 </div>
 
                 {/* Fabric Specifications Symmetrical Rows */}
                 <div className="my-6 flex flex-col gap-3">
                   <span className="text-[#ECE8E1]/45 uppercase tracking-[0.2em] text-[9px] font-semibold block">
-                    {tp("featuresTitle" as any)}
+                    {tp("featuresTitle")}
                   </span>
                   <div className="flex flex-col gap-2">
-                    {(dbProducts?.polo.specs?.[currentRegion] || [tp("featuresGsm" as any), tp("featuresKnit" as any), tp("featuresColor" as any)]).map((featText, idx) => {
+                    {(dbProducts?.polo.specs?.[currentRegion] || [tp("featuresGsm"), tp("featuresKnit"), tp("featuresColor")]).map((featText, idx) => {
                       const { label, value } = renderSpecRow(featText);
                       return (
                         <div 
@@ -414,7 +381,7 @@ export default function Home() {
                     }}
                     className="px-8 py-4 bg-transparent border border-[#5E6D62] hover:bg-[#5E6D62] hover:text-[#ece8e1] text-[#5E6D62] text-[10px] font-mono font-semibold tracking-[0.2em] transition-luxury rounded-none uppercase cursor-pointer glow-sage-hover"
                   >
-                    {tp("addToCart" as any)}
+                    {tp("addToCart")}
                   </motion.button>
                 </div>
               </div>
@@ -434,7 +401,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12 items-stretch">
-              {dbProducts.customProducts.map((product, idx) => {
+              {dbProducts.customProducts.map((product) => {
                 const priceValue = product.basePrice[currentRegion] ?? product.basePrice.tr;
                 const catColors: Record<string, string> = {
                   parfum: "#C29F68",
@@ -460,7 +427,7 @@ export default function Home() {
                         <div>
                           <div className="flex justify-between items-center border-b border-white/5 pb-2.5 mb-5">
                             <span className="text-[8px] font-mono uppercase tracking-widest" style={{ color: accent }}>
-                              {({ parfum: "🌿 Parfüm", giyim: "👕 Giyim", aksesuar: "💎 Aksesuar", diger: "📦 Ürün" } as any)[product.category] || product.category}
+                              {({ parfum: "🌿 Parfüm", giyim: "👕 Giyim", aksesuar: "💎 Aksesuar", diger: "📦 Ürün" })[product.category] || product.category}
                             </span>
                             <span className="text-[7px] font-mono text-[#ECE8E1]/20 uppercase">
                               NARD_BESPOKE // {product.id.substring(0, 8)}
@@ -533,7 +500,7 @@ export default function Home() {
                                 id: product.id,
                                 nameKey: localizedName,
                                 price: priceValue,
-                                type: "custom" as any,
+                                type: "custom",
                               });
                               addToast(
                                 currentRegion === "tr"
@@ -694,19 +661,8 @@ export default function Home() {
                     )}
                   </div>
                 </div>
-              ) : aiLoading ? (
-                // Siberian-minimalist luxury loading sequence
-                <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="w-12 h-12 border-2 border-[#C29F68]/20 border-t-[#C29F68] rounded-full animate-spin mb-6" />
-                  <p className="text-[10px] font-mono text-[#C29F68] tracking-[0.25em] uppercase animate-pulse">
-                    SYNTHESIZING // MOLECULAR_AURA
-                  </p>
-                  <p className="text-[9px] text-[#ECE8E1]/30 font-mono mt-3 leading-relaxed">
-                    Analyzing frequency waves · Calculating scent matrices · Matching haute-couture catalog
-                  </p>
-                </div>
-              ) : aiResult ? (
-                // Dynamic AI Custom Alchemical recommendation
+              ) : quizResult ? (
+                // Curated recommendation generated entirely in the visitor's browser.
                 <div className="flex flex-col gap-6">
                   <div>
                     <span className="text-[9px] font-mono text-green-400 tracking-widest animate-pulse">
@@ -720,16 +676,20 @@ export default function Home() {
                   <p className="text-xs text-[#ECE8E1]/65 leading-relaxed font-light font-sans">
                     {tq("resultDesc")}{" "}
                     <span className="text-[#C29F68] font-semibold tracking-wider font-mono">
-                      {aiResult.breakdown.toUpperCase()}
+                      {quizAnswers[0] === 1
+                        ? "EARTHY ORGANIC SUITE"
+                        : quizAnswers[0] === 2
+                        ? "NOCTURNAL SAPPHIRE VEIL"
+                        : "SOVEREIGN GOLD AURA"}
                     </span>
                   </p>
 
                   {(() => {
-                    const matched = getMatchedProductDetails(aiResult.matchedProductId);
+                    const matched = getMatchedProductDetails(quizResult);
                     return (
                       <div className="glass-panel p-6 border border-white/5 rounded-none mt-2">
                         <span className="text-[9px] font-mono text-[#C29F68] tracking-widest block mb-1">
-                          {matched.id.toUpperCase()} // MATCHER_RESULT
+                          {matched.id.toUpperCase()} {"// MATCHER_RESULT"}
                         </span>
                         <h4 className="text-xl font-light text-[#ECE8E1] tracking-wide font-serif">
                           {matched.name}
@@ -747,12 +707,12 @@ export default function Home() {
                           </div>
                         </div>
 
-                        <p className="text-[11px] text-[#ECE8E1]/85 leading-relaxed font-light font-sans italic mb-4">
-                          "{aiResult.recipeExplanation}"
-                        </p>
-
                         <p className="text-[10px] text-[#ECE8E1]/55 leading-relaxed font-light font-mono">
-                          {matched.desc}
+                          {matched.id === PRODUCTS.perfume.id
+                            ? tp("perfumeDesc")
+                            : matched.id === PRODUCTS.polo.id
+                            ? tp("poloDesc")
+                            : tq("packDesc")}
                         </p>
                         
                         <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
@@ -799,7 +759,7 @@ export default function Home() {
 
                   <div className="glass-panel p-6 border border-white/5 rounded-none mt-2">
                     <span className="text-[9px] font-mono text-[#C29F68] tracking-widest block mb-1">
-                      {SOVEREIGN_PACK.id.toUpperCase()} // MATCHER_RESULT
+                      {SOVEREIGN_PACK.id.toUpperCase()} {"// MATCHER_RESULT"}
                     </span>
                     <h4 className="text-xl font-light text-[#ECE8E1] tracking-wide font-serif">
                       {tq("matchPack")}
@@ -844,17 +804,9 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Cyber Monospace dynamic indicators Footer */}
-      <footer className="w-full max-w-7xl border-t border-white/5 mt-24 pt-6 px-6 flex flex-col md:flex-row justify-between items-center text-[9px] font-mono text-[#ECE8E1]/40 gap-4 select-none">
-        <div className="flex gap-6">
-          <span>AMBIENT_FREQ: 432HZ</span>
-          <span>GPU_RENDER: WebGL_ACTIVE</span>
-          <span>FPS: 60_LOCKED</span>
-        </div>
-        <div className="flex gap-6">
-          <span>HOSTING: HOSTINGER_SECURE</span>
-          <span>NARD_CORE // ALL RIGHTS RESERVED</span>
-        </div>
+      <footer className="w-full max-w-7xl border-t border-white/10 mt-24 pt-8 px-6 flex flex-col md:flex-row justify-between items-center text-[10px] tracking-widest text-[#ECE8E1]/55 gap-4">
+        <span>NARD PARFÜM</span>
+        <span>© {new Date().getFullYear()} NARD</span>
       </footer>
     </main>
   );

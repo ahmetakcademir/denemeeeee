@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useStore, Region } from "@/store/useStore";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,7 +13,7 @@ interface DrawerProps {
 
 export default function NebulaRegionDrawer({ isOpen, onClose }: DrawerProps) {
   const t = useTranslations("NebulaRegion");
-  const currentRegion = useStore((s) => s.currentRegion);
+  const currentRegion = useLocale() as Region;
   const setRegion = useStore((s) => s.setRegion);
 
   const router = useRouter();

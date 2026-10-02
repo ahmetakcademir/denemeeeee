@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { useStore } from "@/store/useStore";
+import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useStore, type Region } from "@/store/useStore";
 import CustomSoundToggle from "../ui/CustomSoundToggle";
 import NebulaRegionDrawer from "../brand/NebulaRegionDrawer";
 import CartDrawer from "../product/CartDrawer";
 
 export default function InteractiveHeader() {
   const t = useTranslations("Navbar");
-  const currentRegion = useStore((s) => s.currentRegion);
+  const currentRegion = useLocale() as Region;
   const cartItems = useStore((s) => s.cartItems);
 
   const [isRegionOpen, setIsRegionOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function InteractiveHeader() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-30 glass-panel border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
+      <header className="fixed top-0 left-0 w-full z-30 glass-panel border-b border-white/5 py-4 px-4 md:px-12 flex justify-between items-center transition-all duration-300">
         {/* Left Side: Logo & Coordinates */}
         <div className="flex items-center gap-4">
           <div className="relative w-8 h-8 group cursor-pointer flex items-center justify-center">
@@ -44,7 +44,7 @@ export default function InteractiveHeader() {
               <path d="M51 28 H64 C70 28 70 45 64 45 H51 M58 45 L67 72" stroke="url(#headerLuxuryGold)" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold tracking-widest text-[#ECE8E1] hover:text-[#C29F68] transition-colors duration-300 cursor-pointer select-none">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-widest text-[#ECE8E1] hover:text-[#C29F68] transition-colors duration-300 cursor-pointer select-none">
             NARD
           </h1>
           <div className="hidden lg:flex flex-col text-[9px] font-mono text-[#ECE8E1]/30 border-l border-white/10 pl-6 gap-0.5">
@@ -67,16 +67,18 @@ export default function InteractiveHeader() {
         </nav>
 
         {/* Right Side: Region, Cart & Audio toggles */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Sound Toggle */}
-          <CustomSoundToggle />
+          <div className="hidden sm:block"><CustomSoundToggle /></div>
 
           {/* Region Toggle */}
           <button
             onClick={() => setIsRegionOpen(true)}
-            className="px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80 uppercase"
+            aria-label={`${t("region")}: ${currentRegion.toUpperCase()}`}
+            className="px-3 py-2 bg-white/5 border border-white/5 hover:bg-white/10 text-[10px] tracking-widest font-mono text-[#ECE8E1]/80 uppercase flex items-center gap-1.5"
           >
-            {currentRegion}
+            <span aria-hidden="true">🌐</span>
+            <span>{currentRegion.toUpperCase()}</span>
           </button>
 
           {/* Cart Icon */}

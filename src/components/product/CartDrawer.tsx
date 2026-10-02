@@ -1,7 +1,8 @@
 "use client";
 
 import { useStore } from "@/store/useStore";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import type { Region } from "@/store/useStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatRegionalPrice } from "@/utils/productData";
 
@@ -15,7 +16,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const tp = useTranslations("Products");
   const tq = useTranslations("Quiz");
   const cartItems = useStore((s) => s.cartItems);
-  const currentRegion = useStore((s) => s.currentRegion);
+  const currentRegion = useLocale() as Region;
   const removeFromCart = useStore((s) => s.removeFromCart);
   const updateCartQuantity = useStore((s) => s.updateCartQuantity);
   const whatsappNumber = useStore((s) => s.whatsappNumber);
@@ -24,12 +25,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const totalBalance = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const getTranslatedName = (nameKey: string) => {
-    if (nameKey.startsWith("Products.")) {
-      return tp(nameKey.replace("Products.", "") as any);
-    }
-    if (nameKey.startsWith("Quiz.")) {
-      return tq(nameKey.replace("Quiz.", "") as any);
-    }
+    if (nameKey === "Products.perfumeTitle") return tp("perfumeTitle");
+    if (nameKey === "Products.poloTitle") return tp("poloTitle");
+    if (nameKey === "Quiz.matchPack") return tq("matchPack");
     return nameKey;
   };
 
