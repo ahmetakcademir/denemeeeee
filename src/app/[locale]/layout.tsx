@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -11,6 +11,8 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
+
+const display = Cormorant_Garamond({subsets:["latin","latin-ext"],weight:["400"],style:["normal","italic"],variable:"--font-nard-display",display:"swap"});
 
 export const viewport: Viewport = {
   themeColor: "#080c0a",
@@ -69,7 +71,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} className={`${inter.variable} ${display.variable}`}>
       <head>
         {/* Inject Google SEO Structured Data */}
         <script

@@ -1,17 +1,19 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { mountLivingSculpture } from "@/lib/living-sculpture";
+import { mountEditorialMotion } from "@/lib/editorial-motion";
 
-export default function LivingNarrative() {
-  const ref=useRef<HTMLElement>(null);
-  const t=useTranslations("Studio"), n=useTranslations("Narrative");
-  useEffect(()=>ref.current?mountLivingSculpture(ref.current,"nard"):undefined,[]);
-  return <section className="living-scene" ref={ref} aria-labelledby="hero-title">
-    <div className="living-stage" aria-hidden="true"><div className="living-fallback"><svg viewBox="0 0 400 400" fill="none"><path d="M220 44c-220 79 200 136-24 195S277 333 173 365M237 51c-190 66 171 129-28 192S264 324 190 357M200 55c-199 77 186 134-18 181S255 336 153 358" stroke="#d6bd8b" strokeWidth="1.4"/></svg></div><canvas /><div className="living-index"><span>{n("stage1")}</span><i/><span>{n("stage2")}</span><i/><span>{n("stage3")}</span></div></div>
-    <div className="living-chapter" data-living-chapter><div className="living-copy"><p className="eyebrow">NARD · {t("scentTexture")}</p><h1 id="hero-title">{t("headlineOne")}<br/><em>{t("headlineTwo")}</em></h1><p>{t("heroDescription")}</p><a className="material-button" href="#collection">{t("explore")} <span aria-hidden="true">↗</span></a><a className="living-scroll" href="#scent-story">{n("scroll")} <span aria-hidden="true">↓</span></a></div></div>
-    <div id="scent-story" className="living-chapter living-right" data-living-chapter><div className="living-copy"><p className="eyebrow">01 / SPIKENARD</p><h2>{n("chapter2a")}<br/><em>{n("chapter2b")}</em></h2><p>{n("body2")}</p><a className="text-link" href="#spikenard">{n("link2")} <span aria-hidden="true">↗</span></a></div></div>
-    <div className="living-chapter" data-living-chapter><div className="living-copy"><p className="eyebrow">02 / NARD</p><h2>{n("chapter3a")}<br/><em>{n("chapter3b")}</em></h2><p>{n("body3")}</p><a className="material-button" href="#guide">{t("findSignature")} <span aria-hidden="true">↗</span></a></div></div>
-  </section>;
+function ProductPhotograph({name,alt,className,priority=false}:{name:string;alt:string;className?:string;priority?:boolean}) {
+ return <picture className={className}><source srcSet={`/${name}-480.webp 480w, /${name}-768.webp 768w, /${name}.webp 1024w`} sizes={priority?"(max-width:760px) 100vw, 70vw":"(max-width:760px) 65vw, 30vw"}/><img src={`/${name}.webp`} width="1024" height="1024" alt={alt} loading={priority?"eager":"lazy"} fetchPriority={priority?"high":"auto"}/></picture>;
+}
+export default function LivingNarrative(){
+ const ref=useRef<HTMLElement>(null);const t=useTranslations("Studio"),n=useTranslations("Narrative"),p=useTranslations("Products");
+ useEffect(()=>ref.current?mountEditorialMotion(ref.current):undefined,[]);
+ return <section className="scent-cinema" ref={ref} aria-labelledby="hero-title">
+  <div className="scent-frame"><div className="scent-word" aria-hidden="true">NARD</div><ProductPhotograph name="perfume" alt={p("perfumeTitle")} className="scent-photograph" priority/><div className="scent-light" aria-hidden="true"/>
+   <div className="scent-title"><span>SPIKENARD / NARD</span><h1 id="hero-title">{t("headlineOne")}<br/><em>{t("headlineTwo")}</em></h1></div>
+   <div className="scent-action"><p>{t("heroDescription")}</p><a className="material-button" href="#collection">{t("explore")} <span aria-hidden="true">↗</span></a></div><a className="scent-caption" href="#scent-story">{n("scroll")} <span aria-hidden="true">↓</span></a>
+  </div>
+  <div className="scent-material" id="scent-story"><div><span>{t("scentTexture")}</span><h2>{n("chapter3a")}<br/><em>{n("chapter3b")}</em></h2><p>{n("body3")}</p><a className="text-link" href="#guide">{t("findSignature")} <span aria-hidden="true">↗</span></a></div><figure><ProductPhotograph name="polo" alt={p("poloTitle")}/><figcaption>Heavyweight Polo / NARD</figcaption></figure><p className="scent-side-note">{n("body2")}</p></div>
+ </section>;
 }
