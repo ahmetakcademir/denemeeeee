@@ -111,5 +111,18 @@
     "contactAction": "Kontakt aufnehmen",
     "contactDescription": "Schreiben Sie uns für Informationen zur Kollektion und den Designs. Ihr E-Mail-Programm öffnet sich.",
     "backTop": "Nach oben"
+  },
+  "Narrative": {
+    "stage1": "Duft",
+    "stage2": "Charakter",
+    "stage3": "Signatur",
+    "scroll": "Die Geschichte entdecken",
+    "chapter2a": "Mehr als",
+    "chapter2b": "ein Duft.",
+    "body2": "Entdecken Sie den Charakter von Spikenard. Seine Noten, seine Textur und den Eindruck, den er hinterlässt.",
+    "link2": "Spikenard entdecken",
+    "chapter3a": "Ganz Sie.",
+    "chapter3b": "Was bleibt.",
+    "body3": "Duft, Textur und ihre Balance. Finden Sie Ihren eigenen Ausdruck in der NARD Kollektion."
   }
 }

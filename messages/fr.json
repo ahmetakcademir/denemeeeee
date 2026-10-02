@@ -111,5 +111,18 @@
     "contactAction": "Écrivez-nous",
     "contactDescription": "Contactez-nous pour en savoir plus sur la collection et ses créations. Votre application de messagerie s’ouvrira.",
     "backTop": "En haut"
+  },
+  "Narrative": {
+    "stage1": "Parfum",
+    "stage2": "Caractère",
+    "stage3": "Signature",
+    "scroll": "Découvrir l’histoire",
+    "chapter2a": "Au-delà",
+    "chapter2b": "du parfum.",
+    "body2": "Découvrez le caractère de Spikenard. Ses notes, sa texture et l’impression qu’il laisse.",
+    "link2": "Découvrir Spikenard",
+    "chapter3a": "À vous.",
+    "chapter3b": "Pour vous suivre.",
+    "body3": "Le parfum, la texture et leur équilibre. Faites place à votre expression dans la collection NARD."
   }
 }

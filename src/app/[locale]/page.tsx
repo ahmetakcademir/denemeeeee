@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import InteractiveHeader from "@/components/layout/InteractiveHeader";
 import ScentGuide from "@/components/brand/ScentGuide";
+import LivingNarrative from "@/components/brand/LivingNarrative";
 import catalog from "@/data/products.json";
 import type { DBProductDataset, Region } from "@/store/useStore";
 
@@ -31,19 +32,7 @@ export default function Home() {
     <a href="#main" className="skip-link">{s("skip")}</a>
     <InteractiveHeader />
     <main id="main">
-      <section className="hero section-shell" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="eyebrow"><span className="brand-dot" />NARD · {s("scentTexture")}</p>
-          <h1 id="hero-title">{s("headlineOne")}<br />{s("headlineTwo")}</h1>
-          <p className="hero-description">{s("heroDescription")}</p>
-          <div className="hero-actions"><a className="material-button" href="#collection">{s("explore")}<Arrow /></a><a className="text-link" href="#guide">{s("findSignature")}<Arrow diagonal /></a></div>
-        </div>
-        <figure className="hero-art">
-          <div className="hero-art-image"><Image src="/perfume.webp" alt={p("perfumeTitle")} width={1024} height={1024} priority sizes="(max-width: 760px) 100vw, 53vw" /></div>
-          <figcaption><span>01 / SPIKENARD</span><span>{s("perfumeCaption")}</span></figcaption>
-        </figure>
-        <div className="hero-foot"><span>{s("heroFoot")}</span><a href="#collection">{s("scroll")}<span aria-hidden="true">↓</span></a></div>
-      </section>
+      <LivingNarrative />
 
       <nav className="collection-index section-shell" aria-label={s("collectionNavigation")}>
         <a href="#spikenard"><span>01</span>{s("fragrance")}<Arrow diagonal /></a>
