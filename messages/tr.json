@@ -111,5 +111,18 @@
     "contactAction": "Bizimle iletişime geç",
     "contactDescription": "Koleksiyon ve tasarımlar hakkında bilgi almak için bize yaz. E-posta uygulaman açılacak.",
     "backTop": "Başa dön"
+  },
+  "Narrative": {
+    "stage1": "Koku",
+    "stage2": "Karakter",
+    "stage3": "İmza",
+    "scroll": "Hikâyeyi keşfet",
+    "chapter2a": "Bir kokudan",
+    "chapter2b": "daha fazlası.",
+    "body2": "Spikenard’ın karakterini yakından keşfedin. Notaları, dokusu ve bıraktığı hisle.",
+    "link2": "Spikenard’ı incele",
+    "chapter3a": "Size ait.",
+    "chapter3b": "Sizinle kalan.",
+    "body3": "Koku, doku ve birlikte kurdukları denge. NARD koleksiyonunda kendi ifadenize yer açın."
   }
 }

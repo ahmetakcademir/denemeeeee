@@ -111,5 +111,18 @@
     "contactAction": "Get in touch",
     "contactDescription": "Write to us for information about the collection and its designs. Your email app will open.",
     "backTop": "Back to top"
+  },
+  "Narrative": {
+    "stage1": "Scent",
+    "stage2": "Character",
+    "stage3": "Signature",
+    "scroll": "Explore the story",
+    "chapter2a": "Beyond",
+    "chapter2b": "the fragrance.",
+    "body2": "Explore the character of Spikenard. Its notes, texture and the impression it leaves.",
+    "link2": "Discover Spikenard",
+    "chapter3a": "Your own.",
+    "chapter3b": "To stay with you.",
+    "body3": "Scent, texture and the balance between them. Find room for your own expression in the NARD collection."
   }
 }
